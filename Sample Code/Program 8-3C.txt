@@ -1,0 +1,25 @@
+﻿	#pragma config OSC = HS, OSCS = OFF
+	#pragma config PWRT = OFF, BOR = ON, BORV = 45
+	#pragma config WDT = OFF, LVP = OFF
+	#pragma config DEBUG = OFF, STVR = OFF
+	#include <P18F458.h>
+	void msdelay(unsigned int ms);
+	void main(void)
+	  {
+	    TRISB = 0;			
+	    while(1)
+	      {
+	      PORTB = 0x55;
+	      msdelay(500);
+	      PORTB = 0xAA;
+	      msdelay(500);
+	      }
+	  }
+	
+	void msdelay(unsigned int ms)
+	  {
+	  unsigned int x; 
+	  unsigned char z;
+	  for(x=0;x<ms;x++)
+	    for(z=0;z<165;z++);
+	  }

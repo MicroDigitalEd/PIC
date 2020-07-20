@@ -1,0 +1,58 @@
+﻿#include <p18f458.h>
+void EE_WRT(void);
+unsigned char EE_READ(void);
+void SerTx(unsigned char);
+void main(){
+  rom far char* RomPointer="MOVE ME";
+  char RamString[7];
+  unsigned char x,ch,k=sizeof(RomPointer);
+  TXSTA=0x20;		
+  SPBRG=15;		
+  TXSTAbits.TXEN=1;
+  RCSTAbits.SPEN=1; 
+  
+  for(x=0;x<7;x++){
+    RamString[x]=RomPointer[x];
+  }
+  
+  for(x=0;x<7;x++){
+    EEADR=x;
+    EEDATA=RamString[x];
+    EE_WRT();
+    }
+  EECON1bits.WREN=0;
+  
+  for(x=0;x<7;x++){
+    EEADR=x;
+    ch=EE_READ();
+    SerTx(ch);
+  }
+    
+  while(1);
+}
+void EE_WRT()
+{
+    EECON1bits.EEPGD=0;	
+    EECON1bits.CFGS=0;
+    EECON1bits.WREN=1;	
+    INTCONbits.GIE=0;	
+    EECON2=0x55;		
+    EECON2=0xAA;
+    EECON1bits.WR=1;
+    INTCONbits.GIE=1;
+    while(!PIR2bits.EEIF);
+    PIR2bits.EEIF=0;
+ }	
+unsigned char EE_READ()
+{
+    EECON1bits.EEPGD=0;	
+    EECON1bits.CFGS=0;
+    EECON1bits.RD=1; 	
+    return(EEDATA); 	
+}	
+  
+void SerTx(unsigned char c)
+{  	
+    while(PIR1bits.TXIF==0);	
+    TXREG=c;		
+}

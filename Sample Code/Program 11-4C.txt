@@ -1,0 +1,38 @@
+﻿#include <p18F4580.h>
+#define mybit PORTBbits.RB7
+void chk_isr(void);
+void INT0_ISR(void);
+#pragma interrupt chk_isr
+void chk_isr (void)
+{
+if (INTCONbits.INT0IF==1)	
+INT0_ISR( );			
+}
+#pragma code My_HiPrio_Int=0x08	
+					
+void My_HiPrio_Int (void)
+{
+_asm
+GOTO chk_isr
+_endasm
+}
+#pragma code
+void main(void)
+  {
+   	TRISBbits.TRISB7=0;	
+	TRISBbits.TRISB0=1;	
+	TRISC = 0xFF;		
+	TRISD = 0;			
+	INTCONbits.INT0IF=0; 	
+	INTCONbits.INT0IE=1;	
+	INTCONbits.GIE=1;	
+   while(1)	
+    {
+	PORTD=PORTC;
+    }
+  }
+void INT0_ISR(void)
+  {
+    mybit=~mybit;
+    INTCONbits.INT0IF=0;		
+  }

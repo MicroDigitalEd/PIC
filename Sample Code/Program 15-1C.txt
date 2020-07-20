@@ -1,0 +1,16 @@
+﻿    CCP1CON=0x02;		
+    T3CON=0x42;		
+    TRISCbits.TRISC2=0; 
+    TRISCbits.TRISC0=1; 	
+    CCPR1L=10;			
+    CCPR1H=0;			
+    while(1)
+    {
+      TMR3H=0;
+      TMR3L=0;
+      PIR1bits.CCP1IF=0;	
+      T3CONbits.TMR3ON=1;	
+      while(PIR1bits.CCP1IF==0);	
+      
+      T3CONbits.TMR3ON=0;	
+    }    

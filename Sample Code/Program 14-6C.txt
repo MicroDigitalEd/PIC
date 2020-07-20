@@ -1,0 +1,43 @@
+﻿#include <p18Cxxx.h>
+void Delay(unsigned int itime);
+void main()
+{
+	unsigned char x;
+  	
+  	TBLPTR = (short long)0x0400; 	
+  	TABLAT='G';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT='O';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT='O';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT='D';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT=' ';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT='B';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT='Y';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	TABLAT='E';				
+  	_asm TBLWTPOSTINC _endasm 	
+  	
+  	TBLPTR = (short long)0x0400;	
+  	EECON1bits.EEPGD=1;
+  	EECON1bits.CFGS=0;
+  	EECON1bits.WREN=1;
+	INTCONbits.GIE=0;
+ 	EECON2=0x55;
+  	EECON2=0xAA;
+  	EECON1bits.WR=1;
+  	_asm NOP _endasm
+  	INTCONbits.GIE=1;
+  	EECON1bits.WREN=0;
+  	
+  	TBLPTR = (short long)0x0400;	
+  	for(x=0;x<8;x++){
+    		_asm TBLRDPOSTINC _endasm
+    		PORTB=TABLAT;
+    		Delay(250);
+    	}
+}

@@ -1,0 +1,13 @@
+﻿#include <P18F458.h>
+near unsigned char mydata[100];	  
+void main(void)
+  { 
+    unsigned char x, z = 0;
+    TRISB = 0;				  
+    for(x=0;x<100;x++)
+      {
+        z--;        			  
+        mydata[x] = z;			  
+        PORTB = z;   			  
+      }
+  }

@@ -1,0 +1,57 @@
+﻿#include <P18F458.h>
+#define ldata PORTD	
+#define rs PORTBbits.RB0		
+#define rw PORTBbits.RB1		
+#define en PORTBbits.RB2		
+ 
+#pragma romdata mycom = 0x300 	
+far rom const char mycom[] = {0x0E,0x01,0x06,0x84};
+#pragma romdata mydata = 0x320 	
+far rom const char mydata[] = "HELLO";
+void main()
+  {
+    unsigned char z=0;
+    TRISD = 0;			
+    TRISB = 0;
+    en = 0;                 
+    MSDelay(250);
+    lcdcmd(0x38);
+    MSDelay(250); 
+    
+    for(;z<4;z++) 
+      {
+        lcdcmd(mycom[z]);
+        MSDelay(15);
+      }
+    
+    for(z=0;z<5;z++)
+      {
+        lcddata(mydata[z]); 
+        MSDelay(15);
+      }
+    while(1); 
+  }
+void lcdcmd(unsigned char value)
+  {
+    ldata = value;  		
+    rs = 0;
+    rw = 0;
+    en = 1;         		
+    MSDelay(1);
+    en = 0;
+  }
+void lcddata(unsigned char value)
+  {
+    ldata = value;  		
+    rs = 1;
+    rw = 0;
+    en = 1;         		
+    MSDelay(1);
+    en = 0;
+  }
+void MSDelay(unsigned int itime)
+  {
+    unsigned int i, j;
+    for(i=0;i<itime;i++)
+      for(j=0;j<135;j++);
+  }

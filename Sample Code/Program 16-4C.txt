@@ -1,0 +1,34 @@
+﻿#include <p18f458.h>
+unsigned char SPI(unsigned char);
+void SDELAY(int ms);
+void main()
+  {
+  	SSPSTAT = 0; 
+  	SSPCON1 = 0x22; 		
+  	TRISC	= 0; 			
+	TRISCbits.TRISC4 = 1;	
+	TRISCbits.TRISC7 = 1;	
+	PORTCbits.RC2 = 1; 	
+	SDELAY(1);
+	SPI(0x8F);   		
+	SPI(0x00);   		
+	PORTCbits.RC2 = 0; 	
+	SDELAY(1);
+	PORTCbits.RC2 = 1; 	
+	SPI(0x80);   		
+	SPI(0x55);   		
+	SPI(0x58);   		
+	SPI(0x16);   		
+	SPI(0x3);    		
+	SPI(0x19);   		
+	SPI(0x10);   		
+	SPI(0x04);   		
+	PORTCbits.RC2 = 0; 	
+	SDELAY(1);
+	}
+unsigned char SPI(unsigned char myByte) 
+  { 
+	SSPBUF = myByte;			
+     while(!SSPSTATbits.BF);	
+	return SSPBUF; 		
+	}

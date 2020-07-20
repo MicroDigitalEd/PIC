@@ -1,0 +1,15 @@
+﻿#include <P18F458.h>
+#pragma udata mycount = 0x200		
+						
+far unsigned char mycount[100];	
+void main(void)
+  { 
+    unsigned char x,z=0;
+    TRISB = 0;				
+      for(x=0;x<100;x++)
+        {
+          z--;       			
+          mycount[x]=z; 		
+          PORTB=z;     		
+        }
+  }

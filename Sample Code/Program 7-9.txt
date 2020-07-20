@@ -1,0 +1,10 @@
+﻿#include <P18F458.h>
+#pragma idata mydata = 0x150
+unsigned char mydata[]= "HELLO";		
+void main(void)
+  {   
+    unsigned char z;
+    TRISB = 0;					
+    for(z=0;z<5;z++)
+      PORTB = mydata[z];
+  }

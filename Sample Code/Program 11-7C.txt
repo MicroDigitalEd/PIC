@@ -1,0 +1,45 @@
+﻿#include <p18F458.h>
+void chk_isr(void);
+void TX_ISR(void);
+void RC_ISR(void);
+#pragma code My_HiPrio_Int=0x08 
+void My_HiPrio_Int (void)
+{
+	_asm
+		GOTO chk_isr
+	_endasm
+}
+#pragma code
+#pragma interrupt chk_isr
+void chk_isr (void)
+{
+if (PIR1bits.TXIF==1)		
+  TX_ISR( );			
+if (PIR1bits.RCIF==1)		
+  RC_ISR( );			
+}
+void main(void)
+  {
+	TRISD = 0xFF;		
+	TRISB = 0;			
+	TRISCbits.TRISC6=0;	
+	TRISCbits.TRISC7=1;	
+	TXSTA=0x20;		
+	SPBRG=15;			
+	RCSTAbits.CREN=1;
+	RCSTAbits.SPEN=1; 
+	TXSTAbits.TXEN=1;
+	PIE1bits.RCIE=1; 	
+	PIE1bits.TXIE=1; 	
+	INTCONbits.PEIE=1;	
+	INTCONbits.GIE=1; 	
+   	while(1);		
+  }
+void TX_ISR(void)
+  {
+	TXREG=PORTD;
+  }
+void RC_ISR(void)
+  {
+	PORTB=RCREG;
+  }

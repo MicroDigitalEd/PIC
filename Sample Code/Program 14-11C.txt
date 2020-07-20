@@ -1,0 +1,52 @@
+﻿#include <p18F458.h>
+void EE_WRT(void);
+unsigned char EE_READ(void);
+void Delay(unsigned int itime);
+void main()
+{
+   unsigned char x;
+   TRISB=0;		
+   EEADR=0x0;		
+   EEDATA='Y';		
+   EE_WRT();  
+   EEADR=0x1;
+   EEDATA='E';
+   EE_WRT(); 
+   EEADR=0x2;
+   EEDATA='S';
+   EE_WRT();	
+   EECON1bits.WREN=0;	
+   EECON1bits.RD=1;	
+   EEADR =0x0;		
+   x=EE_READ();		
+   PORTB=x;		
+   Delay(250);
+   EEADR =0x1;		
+   x=EE_READ();
+   PORTB=x;		
+   Delay(250);
+   EEADR =0x2;		
+   x=EE_READ();
+   PORTB=x;		
+   while(1);
+}
+void EE_WRT()
+{
+   EECON1bits.EEPGD=0;
+   EECON1bits.CFGS=0;
+   EECON1bits.WREN=1;	
+   INTCONbits.GIE=0;	
+   EECON2=0x55;		
+   EECON2=0xAA;
+   EECON1bits.WR=1;
+   INTCONbits.GIE=1;
+   while(!PIR2bits.EEIF);
+   PIR2bits.EEIF=0;
+}	
+unsigned char EE_READ()
+{
+   EECON1bits.EEPGD=0;
+   EECON1bits.CFGS=0;
+   EECON1bits.RD=1; 	
+   return(EEDATA); 	
+}	

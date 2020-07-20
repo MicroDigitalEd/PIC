@@ -1,0 +1,14 @@
+﻿#include <p18F458.h>
+rom const unsigned char WAVEVALUE[12] ={128,192,238,255,
+                238,192,128,64,
+                17,0,17,64};
+void main()
+  {
+    unsigned char x;
+    TRISB=0;
+    while(1)
+      {
+      for(x=0;x<12;x++)
+       PORTB = WAVEVALUE[x];
+      }
+  }

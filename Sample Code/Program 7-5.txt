@@ -1,0 +1,9 @@
+﻿#include <P18F458.h>
+void main(void)
+ {
+    unsigned char x=5,y=9;	
+    unsigned char z;
+    TRISB = 0;			
+    z = x + y;
+    PORTB = z;
+  }

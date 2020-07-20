@@ -1,0 +1,22 @@
+﻿#include <P18F458.h>
+#pragma code main = 0x50	
+void MSDelay(unsigned int);
+void main(void)
+  {   
+    unsigned char mydata[] = "HELLO";  
+    unsigned char z;
+    TRISB = 0;			
+    for(z=0;z<5;z++)
+     {
+       PORTB = mydata[z];
+       MSDelay(250);
+     } 
+  }
+#pragma code MSDelay = 0x300	
+void MSDelay(unsigned int itime)
+  {
+    unsigned int i;
+    unsigned char j;
+    for(i=0;i<itime;i++)
+      for(j=0;j<165;j++);
+  }

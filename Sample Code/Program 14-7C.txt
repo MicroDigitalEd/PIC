@@ -1,0 +1,20 @@
+﻿#include <p18Cxxx.h>
+#pragma romdata const_table = 0x500
+const rom char my_const_array[10] = "GOOD BYE";
+#pragma romdata
+void main()
+{
+  
+  TBLPTR = (short long)0x0500; 	
+  EECON1bits.EEPGD=1;
+  EECON1bits.CFGS=0;
+  EECON1bits.WREN=1;
+  EECON1bits.FREE=1;
+  INTCONbits.GIE=0;
+  EECON2=0x55;
+  EECON2=0xAA;
+  EECON1bits.WR=1;
+  _asm NOP _endasm
+  INTCONbits.GIE=1;
+  EECON1bits.WREN=0;
+}

@@ -1,0 +1,10 @@
+﻿#include <P18F458.h>
+rom const char mynum[]= "0123456789"; 
+				
+void main(void)
+  {   
+    unsigned char z;
+    TRISB = 0;		
+    for(z=0;z<10;z++)
+      PORTB=mynum[z];
+  }

@@ -1,0 +1,36 @@
+﻿   	ORG 0
+  
+	MOVLW B'00100100'		
+     	MOVWF TXSTA			
+     	MOVLW B'10010000'		
+     	MOVWF	RCSTA			
+   	MOVLW D'15'			
+     	MOVWF SPBRG			
+     	BSF 	RCSTA, SPEN		
+	BCF 	TRISC, TX		
+     	BSF 	TRISC, RX		
+	CLRF	TRISB			
+	SETF	TRISD			
+  
+	MOVLW 'Y'			
+	CALL	TRANS
+	MOVLW 'E'			
+	CALL	TRANS
+	MOVLW 'S'			
+	CALL	TRANS
+  
+OVER	MOVF PORTD,W		
+	CALL 	TRANS			
+  
+	CALL 	RECV			
+	MOVWF PORTB   		
+	BRA	OVER			
+TRANS	
+S1	BTFSS PIR1, TXIF 		
+     	BRA 	S1             	
+	MOVWF	TXREG     		
+     	RETURN			
+RECV 	BTFSS PIR1, RCIF 		
+     	BRA 	RECV			
+	MOVF RCREG,W   		
+	RETURN

@@ -1,0 +1,64 @@
+﻿#include "p18f458.h"
+void CCP1_ISR(void);
+void rising(void);
+void falling(void);
+unsigned char disp = 0;
+unsigned char rf = 0;
+#pragma interrupt chk_isr 
+void chk_isr (void)
+{
+  if (PIR1bits.CCP1IF==1)
+    CCP1_ISR();
+}
+#pragma code My_HiPrio_Int=0x0008
+void My_HiPrio_Int (void)
+{
+  _asm
+  GOTO chk_isr
+  _endasm
+}
+#pragma code
+void main()
+  {
+    CCP1CON=0x05; 		
+    T3CON=0x0;  		
+    T1CON=0x0; 		
+    TRISB=0x0; 			
+    TRISD=0x0; 			
+    TRISCbits.TRISC2=1; 	
+    CCPR1H=0x0; 		
+    CCPR1L=0x0; 		
+	  PIE1bits.CCP1IE=1;	
+	  INTCONbits.PEIE=1;	
+	  INTCONbits.GIE=1; 	
+	  while(1)
+	  {
+      TMR1H=0x0; 		
+	    TMR1L=0x0; 		
+      while(disp==0); 	
+	    disp=0;       	
+	    TMR1L-=15; 		
+	    PORTB=TMR1L; 	
+	    PORTD=TMR1H; 	
+	  }
+	}
+void CCP1_ISR()
+  {
+    if(rf==0) rising();
+	  else falling();
+	}
+void rising()
+  {
+	T1CONbits.TMR1ON=1; 		
+	rf=1; 				
+	CCP1CONbits.CCP1M0=0; 	
+	PIR1bits.CCP1IF=0; 		
+  }
+void falling()
+  {
+	T1CONbits.TMR1ON=0; 		
+	disp=1;   				
+	rf=0;					
+	CCP1CONbits.CCP1M0=1; 	
+	PIR1bits.CCP1IF=0; 		
+	}

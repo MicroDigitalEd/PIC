@@ -1,0 +1,61 @@
+﻿#include <p18F458.h>
+#define myPB1bit PORTBbits.RB1
+#define myPB7bit PORTBbits.RB7
+void T0_ISR(void);
+void T1_ISR(void);
+#pragma interrupt chk_isr	
+					
+void chk_isr (void)
+{
+	if (INTCONbits.TMR0IF==1)	
+  		T0_ISR();			
+	if(PIR1bits.TMR1IF==1)	
+		T1_ISR(); 			
+}
+#pragma code My_HiPrio_Int=0x08
+void My_HiPrio_Int (void)
+{
+  _asm
+    GOTO chk_isr
+  _endasm
+}
+#pragma code
+void main(void)
+  {
+    TRISBbits.TRISB1=0;	
+    TRISBbits.TRISB7=0;	
+    TRISC = 255;		
+    TRISD = 0; 		
+    T0CON=0x0;		
+    TMR0H=0x35;		
+    TMR0L=0x00;		
+    T1CON=0x88;		
+    TMR1H=0x35;		
+    TMR1L=0x00;		
+    INTCONbits.TMR0IF=0; 	
+    PIR1bits.TMR1IF=0;	
+    INTCONbits.TMR0IE=1;	
+    INTCONbits.TMR0IE=1;	
+    T0CONbits.TMR0ON=1;	
+    T1CONbits.TMR1ON=1;	
+    INTCONbits.PEIE=1;
+    INTCONbits.GIE=1;	
+   while(1)	
+    { 
+      PORTD=PORTC;	
+    }
+  }
+void T0_ISR(void)
+  {
+    myPB1bit=~myPB1bit;	
+    TMR0H=0x35;			
+    TMR0L=0x00;			
+    INTCONbits.TMR0IF=0;	
+  }
+void T1_ISR(void)
+  {
+    myPB7bit=~myPB7bit;	
+    TMR1H=0x35;			
+    TMR1L=0x00;			
+    PIR1bits.TMR1IF=0;	
+  }

@@ -1,0 +1,66 @@
+﻿#include <P18F458.h>
+#define ldata PORTD	
+#define rs PORTBbits.RB0	
+#define rw PORTBbits.RB1	
+#define en PORTBbits.RB2	
+#define busy PORTDbits.RD7 
+void main()
+  {
+    TRISD = 0;			
+	TRISB = 0;
+	en = 0;			
+	MSDelay(250);		
+	lcdcmd(0x38);
+	MSDelay(250);		
+	lcdcmd(0x0E);
+	lcdready();     	
+	lcdcmd(0x01);
+	lcdready();    		
+	lcdcmd(0x06);
+	lcdready();    		
+	lcdcmd(0x86);		
+	lcdready();    		
+	lcddata('M');       
+	lcdready();    		
+	lcddata('D');       
+	lcdready();    		
+	lcddata('E');       
+  }
+void lcdcmd(unsigned char value)
+  {
+    ldata = value;  		
+    rs = 0;
+    rw = 0;
+    en = 1;         		
+    MSDelay(1);
+    en = 0;
+  }
+void lcddata(unsigned char value)
+  {
+    ldata = value;  		
+    rs = 1;
+    rw = 0;
+    en = 1;        		
+    MSDelay(1);
+    en = 0;
+  }
+    
+void lcdready()
+  {
+    TRISD = 0xFF;		
+    rs = 0;                  
+    rw = 1;                   
+    do				
+     {
+       en = 1;      		
+       MSDelay(1);
+       en = 0;
+     }while(busy==1);
+	TRISD = 0; 
+   }
+void MSDelay(unsigned int itime)
+  {
+    unsigned int i, j;
+    for(i=0;i<itime;i++)
+      for(j=0;j<135;j++);
+  }

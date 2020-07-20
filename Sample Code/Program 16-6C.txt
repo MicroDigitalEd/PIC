@@ -1,0 +1,75 @@
+﻿#include <p18f458.h>
+#pragma interrupt chk_isr	
+void chk_isr (void)
+{
+  if (INTCONbits.INT0IF==1)
+  INT0_ISR( );			
+}
+#pragma code My_HiPrio_Int=0x0008 
+{ 
+  _asm
+  GOTO chk_isr
+  _endasm
+}
+#pragma code
+void main(void)
+  {
+  TRISC=0x90;	  
+  TRISBbits.TRISB0=1;		
+  SSPSTAT=0x0;      		
+  SSPCON1=0x22;     		
+  INTCON2bits.INTEDG0=0;	
+					
+  INTCONbits.INT0IE=1; 	
+  TXSTA=0x20;       	
+  SPBRG=15;         	
+  RCSTAbits.SPEN=1;    	
+  INTCONbits.GIE=1;		
+  PORTCbits.RC2=1;		
+  MSDelay(1);
+  SPI(0x8F);			
+  SPI(0x0);			
+  PORTCbits.RC2=0;		
+  MSDelay(1);
+  PORTCbits.RC2=1;		
+  MSDelay(1);
+  SPI(0x87);			
+  SPI(0x08);			
+  SPI(0x80);			
+  SPI(0x80);			
+  SPI(0x80);			
+  PORTCbits.RC2=0;		
+  MSDelay(1);
+  PORTCbits.RC2=1;		
+  MSDelay(1);
+  SPI(0x8F);			
+  SPI(0x01);			
+  PORTCbits.RC2=0;		
+  MSDelay(1);
+  while(1);			
+  }
+void INT0_ISR()
+  {
+  unsigned char mess[]={0x0D,0x0A,'Y','E','S',0};
+  unsigned char i;
+  PORTCbits.RC2=1;		
+  MSDelay(1);
+  SPI(0x8F);			
+  SPI(0x04);			
+  PORTCbits.RC2=0;		
+  MSDelay(1);
+  PORTCbits.RC2=1;		
+  MSDelay(1);
+  SPI(0x87);			
+  SPI(0x08);			
+  PORTCbits.RC2=0;		
+  MSDelay(1);
+  for(i=0;mess[i]!=0;i++)
+   TRANS(mess[i]);
+  PORTCbits.RC2=1;		
+  MSDelay(1);
+  SPI(0x8F);			
+  SPI(0x01);			
+  PORTCbits.RC2=0;		
+  INTCONbits.INT0IF=0;
+  }

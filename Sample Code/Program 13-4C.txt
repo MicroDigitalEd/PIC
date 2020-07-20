@@ -1,0 +1,24 @@
+﻿void main(void)
+{
+  unsigned char L_Byte,H_Byte,Bin_Temp;
+  TRISD=0;			
+  TRISAbits.TRISA0=1;	
+  TRISAbits.TRISA2=1;	
+  ADCON0 = 0x81; 	
+  ADCON1 = 0xC5; 	
+				
+  while(1)
+  {
+    MSDelay(1);		
+    ADCON0bits.GO = 1; 	
+    while(ADCON0bits.DONE == 1);		
+    L_Byte=ADRESL;	
+    H_Byte=ADRESH;	
+    L_Byte>>=2;		
+    L_Byte&=0x3F;	
+    H_Byte<<=6;		
+    H_Byte&=0xC0;	
+    Bin_Temp= L_Byte|H_Byte;
+    PORTD=Bin_Temp;
+  }
+}

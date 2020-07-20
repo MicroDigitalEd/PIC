@@ -1,0 +1,53 @@
+﻿#include <p18Cxxx.h>
+void Delay(unsigned int itime);
+#pragma romdata const_table = 0x1200
+const rom char my_const_array[10] = "GOOD BYE";
+#pragma romdata
+void main()
+{
+  unsigned char x;
+  
+  
+  TBLPTR = (short long)0x1200; 	
+  EECON1bits.EEPGD=1;
+  EECON1bits.CFGS=0;
+  EECON1bits.WREN=1;
+  EECON1bits.FREE=1;
+  INTCONbits.GIE=0;
+  EECON2=0x55;
+  EECON2=0xAA;
+  EECON1bits.WR=1;
+  _asm NOP _endasm
+  INTCONbits.GIE=1;
+  EECON1bits.WREN=0;
+  TBLPTR = (short long)0x1200; 	
+  TABLAT='H';					
+  _asm TBLWTPOSTINC _endasm 		
+  TABLAT='E';					
+  _asm TBLWTPOSTINC _endasm 		
+  TABLAT='L';					
+  _asm TBLWTPOSTINC _endasm 		
+  TABLAT='L';					
+  _asm TBLWTPOSTINC _endasm 		
+  TABLAT='O';					
+  _asm TBLWTPOSTINC _endasm 		
+  
+  TBLPTR = (short long)0x1200;	
+  EECON1bits.EEPGD=1;
+  EECON1bits.CFGS=0;
+  EECON1bits.WREN=1;
+  INTCONbits.GIE=0;
+  EECON2=0x55;
+  EECON2=0xAA;
+  EECON1bits.WR=1;
+  _asm NOP _endasm
+  INTCONbits.GIE=1;
+  EECON1bits.WREN=0;
+  
+  TBLPTR = (short long)0x1200;	
+  for(x=0;x<8;x++){
+    _asm TBLRDPOSTINC _endasm
+    PORTB=TABLAT;
+    Delay(250);
+  }  
+}

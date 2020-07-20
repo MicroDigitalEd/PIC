@@ -1,0 +1,70 @@
+﻿#include <p18f458.h>
+unsigned char SPI(unsigned char);
+void TRANS(unsigned char);
+void BCDtoASCIIandSEND(unsigned char);
+void SDELAY(int ms);
+void main()
+  {
+  unsigned char data[7]; 	
+  unsigned char tmp;		
+  int i;
+  SSPSTAT = 0; 		
+  SSPCON1 = 0x22; 		
+  TRISC	= 0; 			
+  TRISCbits.TRISC4 = 1; 	
+  TRISCbits.TRISC7 = 1;	
+  TXSTA = 0x20;  		
+  SPBRG = 15;    	
+  RCSTAbits.SPEN = 1; 	
+  TRANS(0x0A);			
+  TRANS(0x0D);			
+  while(1)
+    {
+    PORTCbits.RC2 = 1; 	
+    SDELAY(1);
+    SPI(0x00);   		
+    for(i=0;i<7;i++)
+      {
+      data[i] = SPI(0x00);	
+      }
+    PORTCbits.RC2 = 0; 	
+    BCDtoASCIIandSEND(data[5]); 
+    BCDtoASCIIandSEND(data[4]); 
+    BCDtoASCIIandSEND(data[6]); 
+    BCDtoASCIIandSEND(data[2]); 
+    BCDtoASCIIandSEND(data[1]); 
+    BCDtoASCIIandSEND(data[0]); 
+    TRANS(0x0D);		
+    }
+  }
+unsigned char SPI(unsigned char myByte) 
+  { 
+  SSPBUF = myByte;
+  while(!SSPSTATbits.BF);
+  return SSPBUF;
+  }
+void TRANS(unsigned char myChar)	
+  {
+  while(!PIR1bits.TXIF);
+  TXREG = myChar;  	
+  }
+void BCDtoASCIIandSEND(unsigned char myValue)
+  {
+  unsigned char tmp = myValue;
+  tmp = tmp & 0xF0;		
+  tmp = tmp >> 4;		
+  tmp = tmp | 0x30;		
+  TRANS(tmp);			
+  tmp = myValue;		
+  tmp = tmp & 0x0F;		
+  tmp = tmp | 0x30;		
+  TRANS(tmp);			
+  TRANS(':');			
+  }
+  
+void SDELAY(int ms)
+  {
+  unsigned int i, j;
+  for(i=0;i<ms;i++)
+    for(j=0;j<135;j++);
+  }

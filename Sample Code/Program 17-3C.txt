@@ -1,0 +1,14 @@
+﻿#include <p18f458.h>
+void main()
+  {
+ 	TRISD=0; 			
+	PR2=100;			
+	ECCPR1L=50;		
+	ECCP1CON=0xCF;		
+	T2CON=0x24;		
+	{
+	TMR2=0;			
+	PIR1bits.TMR2IF=0;		
+	while(PIR1bits.TMR2IF==0);	
+	}
+  }

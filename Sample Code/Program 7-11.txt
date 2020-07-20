@@ -1,0 +1,13 @@
+﻿#pragma idata x = 0x100	
+unsigned char x=5;	
+#pragma idata y = 0x101	
+unsigned char y=9;	
+#pragma udata z = 0x102	
+unsigned char z;		
+#include <P18F458.h>
+void main(void)
+  {
+    TRISB = 0;		
+    z = x + y;
+    PORTB = z;
+  }

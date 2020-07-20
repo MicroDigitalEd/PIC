@@ -1,0 +1,3 @@
+﻿	CLRF  TRISB		
+	MOVLW 0x55		
+	MOVWF PORTB		

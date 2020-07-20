@@ -1,0 +1,35 @@
+﻿#include <P18F458.h>
+void main(void)
+  {
+    unsigned char z;
+    TRISB = 0xFF;				
+    TRISD = 0;				
+    while(1)				
+      {
+        z = PORTB;   			
+        z = z & 0x3; 			
+        switch(z)  			
+          {
+           case(0):
+            {
+             PORTD = '0';		
+             break;
+            }
+           case(1):
+            {
+             PORTD = '1';		
+             break;
+            }
+           case(2):
+            {
+             PORTD = '2';		
+             break;
+            }
+           case(3):
+            {
+             PORTD = '3';		
+             break;
+            }
+          }
+      }
+  }

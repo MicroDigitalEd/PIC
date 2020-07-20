@@ -1,0 +1,16 @@
+﻿#include <P18F458.h>
+void main(void)
+  { 
+    unsigned char x, binbyte, d1, d2, d3;
+    TRISB = 0;
+    TRISC = 0;
+    TRISD = 0;			
+    binbyte = 0xFD;		
+    x = binbyte / 10;		
+    d1 = binbyte % 10;		
+    d2 = x % 10;			
+    d3 = x / 10;			
+    PORTB = d1;
+    PORTC = d2;
+    PORTD = d3;
+  }

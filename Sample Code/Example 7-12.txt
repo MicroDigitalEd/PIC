@@ -1,0 +1,11 @@
+﻿#include <P18F458.h>
+#define mybit PORTBbits.RB4		
+void main(void)
+  {  
+    TRISBbits.TRISB4=0;			
+    while(1)    
+      {
+        mybit = 1;			
+        mybit = 0;			
+      }  
+  }

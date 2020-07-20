@@ -1,0 +1,21 @@
+﻿#include <P18F458.h>
+void MSDelay(unsigned int);
+void main(void)
+  {
+    unsigned char mybyte;
+    TRISB = 0xFF;			
+    TRISC = 0; 			
+    while(1)
+      { 
+        mybyte = PORTB;	
+        MSDelay(500);
+        PORTC = mybyte;	
+      }
+  }
+void MSDelay(unsigned int itime)
+  {
+    unsigned int i;
+    unsigned char j;
+    for(i=0;i<itime;i++)
+      for(j=0;j<165;j++);
+  }

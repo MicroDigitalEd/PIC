@@ -1,0 +1,14 @@
+﻿#include <P18F458.h>
+#define LED PORTC			
+void main(void)
+  {
+    TRISB = 0;			
+    TRISC = 0;			
+    PORTB = 00;			
+    LED = 0; 			
+    for(;;)				
+      {
+        PORTB++;			
+        LED++;			
+      } 
+  }

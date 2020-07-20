@@ -1,0 +1,10 @@
+﻿#include <P18F458.h>
+void main(void)
+  {			
+    char mynum[]= {+1,-1,+2,-2,+3,-3,+4,-4};
+    unsigned char z;
+    TRISB = 0;			
+    for(z=0;z<8;z++)
+      PORTB = mynum[z];
+    while(1);			
+  }

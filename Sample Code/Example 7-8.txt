@@ -1,0 +1,22 @@
+﻿#include <P18F458.h>			
+void MSDelay(unsigned int);
+void main(void)
+  { 
+    TRISC = 0;
+    TRISD = 0;			
+    while(1)			
+      { 
+        PORTC = 0x55;
+        PORTD = 0x55;
+        MSDelay(250);
+        PORTC = 0xAA;
+        PORTD = 0xAA;
+        MSDelay(250);
+      }
+  }
+void MSDelay(unsigned int itime)
+  {
+    unsigned int i; unsigned char j;
+    for(i=0;i<itime;i++)
+      for(j=0;j<165;j++);
+  }

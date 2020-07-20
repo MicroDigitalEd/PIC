@@ -1,0 +1,3 @@
+﻿	CLRF  0xF93		
+	MOVLW 0x55H		
+	MOVWF 0xF81		

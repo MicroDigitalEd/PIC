@@ -1,0 +1,16 @@
+﻿#include <P18F458.h>
+void main(void)
+  {
+    unsigned char mybyte;
+    TRISC = 0xFF;			
+    TRISB = 0;  
+    TRISD = 0;			
+    while(1)
+      { 
+        mybyte = PORTC;	
+        if(mybyte < 100)
+          PORTB = mybyte;	
+        else
+          PORTD = mybyte;	
+      }
+  }

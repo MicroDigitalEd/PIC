@@ -1,0 +1,13 @@
+﻿#include <P18F458.h>
+#define MYBIT PORTBbits.RB5  
+void main(void)
+  {
+    unsigned int z;
+    TRISBbits.TRISB5 = 0;		
+    for(z=0;z<50000;z++)
+      {
+        MYBIT = 1;
+        MYBIT = 0;
+      }
+    while(1);			
+  }

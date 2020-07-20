@@ -1,0 +1,9 @@
+﻿  #include <P18F458.h>
+  void main(void)
+    { 
+      unsigned char mydata[] = "HELLO";
+      unsigned char z;
+      TRISB = 0;				
+      for(z=0;z<5;z++)
+        PORTB = mydata[z];
+    }

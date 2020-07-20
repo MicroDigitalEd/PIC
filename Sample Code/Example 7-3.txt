@@ -1,0 +1,10 @@
+﻿#include <P18F458.h>	
+void main(void)
+  {
+    TRISB = 0;		
+    for(;;)      	
+      { 
+        PORTB = 0x55;	
+        PORTB = 0xAA;
+      }
+}

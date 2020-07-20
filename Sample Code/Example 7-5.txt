@@ -1,0 +1,12 @@
+﻿#include <P18F458.h>
+void main(void)
+  { 
+     unsigned int z;
+     TRISB = 0;			
+     for(z=0;z<=50000;z++)
+       {
+         PORTB = 0x55;
+         PORTB = 0xAA;
+       }  
+    while(1);			
+  }

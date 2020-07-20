@@ -1,0 +1,13 @@
+﻿#include <P18F458.h>
+void main(void)
+  {
+    unsigned char x, y, z;
+    unsigned char mybyte = 0x29;
+    TRISB = 0;	
+    TRISC = 0;    			
+    x = mybyte & 0x0F;			
+    PORTB = x | 0x30;			
+    y = mybyte & 0xF0;			
+    y = y >> 4;  			
+    PORTC = y | 0x30;			
+  }

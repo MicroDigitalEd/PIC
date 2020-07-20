@@ -1,0 +1,15 @@
+﻿#include <P18F458.h>
+#define PC0 PORTCbits.RC0
+void main(void)
+  { 
+    unsigned char conbyte = 0x88;
+    unsigned char regAMSB;
+    unsigned char x;
+    regAMSB = conbyte;
+    TRISCbits.TRISC0 = 0;		
+    for(x=0;x<8;x++)
+      {
+        PC0 = (regAMSB >> 7) & 0x01; 
+        regAMSB = regAMSB << 1;
+      }
+  }

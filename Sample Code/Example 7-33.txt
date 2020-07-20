@@ -1,0 +1,15 @@
+﻿#include <P18F458.h>
+#define PB0 PORTBbits.RB0
+void main(void)
+  { 
+    unsigned char x;
+    unsigned char REGA=0;
+    TRISBbits.TRISB0 = 1;	
+    TRISD = 0;			
+    for(x=0;x<8;x++)
+      {
+       REGA = REGA << 1;
+       REGA |= PB0 & 0x01;
+      }
+    PORTD = REGA; 
+  }

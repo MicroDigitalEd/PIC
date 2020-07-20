@@ -1,0 +1,15 @@
+﻿#include <P18F458.h>
+void main (void)
+  {
+    TRISB = 0;			
+    TRISC = 0;			
+    TRISD = 0;
+    PORTB = 0x35 & 0x0F;  	
+    PORTC = 0x04 | 0x68; 	
+    PORTD = 0x54 ^ 0x78;  	
+    PORTB = ~0x55;        	
+    PORTC = 0x9A >> 3;    	
+    PORTD = 0x77 >> 4;    	
+    PORTB = 0x6 << 4;    	
+    while(1);			
+  }

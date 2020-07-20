@@ -1,0 +1,10 @@
+﻿	ORG 500H		
+DATA1	DB D'28'      	
+DATA2	DB B'00110101'	
+DATA3	DB 0x39		
+	ORG 510H		
+DATA4	DB 'Y' 		
+DATA5	DB '2','0','0','5'
+	ORG 518H		
+DATA6	DB "Hello ALI"	
+	END 

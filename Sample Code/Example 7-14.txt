@@ -1,0 +1,24 @@
+﻿#include <P18F458.h>
+void MSDelay(unsigned int);
+#define Dsensor PORTBbits.RB1
+#define buzzer PORTCbits.RC7
+void main(void)
+  {
+    TRISBbits.TRISB1 = 1;		
+    TRISCbits.TRISC7 = 0;		
+    while(Dsensor == 1)
+      { 
+        buzzer = 0;
+        MSDelay(200);
+        buzzer = 1;
+        MSDelay(200);
+      }
+    while(1);			
+  }
+void MSDelay(unsigned int itime)
+  {
+    unsigned int i;
+    unsigned char j;
+    for(i=0;i<itime;i++)
+      for(j=0;j<165;j++);
+  }

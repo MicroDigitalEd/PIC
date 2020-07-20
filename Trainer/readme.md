@@ -4,8 +4,8 @@
 
 Purchase this trainer from:
 
-* [www.microchip.com](www.microchip.com)
-* [www.digikey.com](www.digikey.com)
-* [www.mouser.com](www.mouser.com)
+* [www.microchip.com](https://www.microchip.com)
+* [www.digikey.com](https://www.digikey.com)
+* [www.mouser.com](https://www.mouser.com)
 
 See manual in this repository: PIC Trainer Manual

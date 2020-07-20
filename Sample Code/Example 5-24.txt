@@ -1,0 +1,4 @@
+﻿		SETF	 TRISD	
+		MOVLW	 0x63		
+	BACK	CPFSEQ PORTD	
+		BRA	 BACK

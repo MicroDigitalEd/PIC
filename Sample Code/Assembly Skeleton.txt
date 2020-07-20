@@ -1,0 +1,15 @@
+﻿	LIST	P=PIC18F458, F=INHX32, MM=OFF,  N=0, ST=OFF, R=HEX   
+	#include P18F458.INC
+	CONFIG OSC=HS, OSCS=OFF		
+	CONFIG WDT=OFF			
+	
+	CONFIG BORV=45, PWRT=ON, BOR=ON 
+	
+	
+	CONFIG DEBUG=OFF, LVP=OFF, STVR=OFF
+	.......
+	ORG 0
+	.......
+	.......
+	.......
+	END 

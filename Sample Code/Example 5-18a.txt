@@ -1,0 +1,2 @@
+﻿     MOVLW 0x04    		
+     IORLW 0x30    		

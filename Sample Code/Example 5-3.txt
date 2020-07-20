@@ -1,0 +1,4 @@
+﻿	MOVLW 0xE7 		
+	ADDWF 0x6,F		
+	MOVLW 0x3C		
+	ADDWFC 0x7,F	

@@ -1,0 +1,2 @@
+﻿     MOVLW 0x54
+     XORLW 0x78

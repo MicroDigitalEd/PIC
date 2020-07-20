@@ -1,0 +1,6 @@
+﻿	MYLOC	EQU Ox30
+	MOVF	MYLOC,F		
+	BNZ	NEXT			
+	MOVLW	0x55
+	MOVWF	MYLOC			
+NEXT	...	

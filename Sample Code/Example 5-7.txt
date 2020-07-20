@@ -1,0 +1,4 @@
+﻿	MOVLW	0x96 		
+	SUBWF	0x6,F	 
+	MOVLW	0x12		
+	SUBWFB 0x7,F	

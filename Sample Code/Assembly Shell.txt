@@ -1,0 +1,11 @@
+﻿#include P18F458.INC
+	CONFIG OSC = HS, OSCS = OFF  
+	CONFIG WDT = OFF 
+	CONFIG BORV = 45, PWRT = ON, BOR = ON
+	CONFIG DEBUG = OFF, LVP = OFF, STVR = OFF
+	ORG   0000H		
+	              	
+	
+              
+	              	
+	END 

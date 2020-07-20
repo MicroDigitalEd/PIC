@@ -1,0 +1,2 @@
+﻿     MOVLW	0x35		
+     ANDLW	0x0F   	

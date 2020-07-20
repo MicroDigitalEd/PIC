@@ -1,0 +1,10 @@
+﻿	#pragma config OSC = HS, OSCS = OFF  
+	#pragma config BORV = 45, PWRT = ON, BOR = ON
+	#pragma config WDT = OFF 
+	#pragma config DEBUG = OFF, LVP = OFF, STVR = OFF
+	void main (void)
+	{
+	......
+	......
+	......
+	}

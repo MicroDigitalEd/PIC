@@ -1,0 +1,16 @@
+﻿L_Byte EQU 0x5		
+H_Byte EQU 0x6		
+	ORG 0h
+	MOVLW	0x0		
+	MOVWF	H_Byte	
+	ADDLW	0x79		
+	BNC	N_1		
+	INCF	H_Byte,F	
+N_1	ADDLW	0xF5		
+	BNC	N_2		
+	INCF	H_Byte,F	
+N_2	ADDLW	0xE2		
+	BNC	OVER		
+	INCF	H_Byte,F	
+OVER	MOVWF	L_Byte	
+	END

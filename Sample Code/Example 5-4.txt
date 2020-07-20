@@ -1,0 +1,22 @@
+﻿L_Byte	EQU	0x6		
+H_Byte	EQU	0x7		
+	
+	MOVLW		0		
+	MOVWF		H_Byte	
+	ADDWF		0x40,W	
+	DAW				
+	BNC		N_1	 	
+	INCF		H_Byte,F	
+N_1	ADDWF 	0x41,W	
+	DAW				
+	BNC		N_2		
+	INCF		H_Byte,F	
+N_2	ADDWF 	0x42,W	
+	DAW				
+	BNC		N_3		
+	INCF		H_Byte	
+N_3	ADDWF 	0x43,W	
+	DAW				
+	BNC		N_4		
+	INCF		H_Byte,F	
+N_4	MOVWF 	L_Byte	

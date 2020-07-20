@@ -1,0 +1,8 @@
+﻿#pragma config OSC = HS, OSCS = OFF
+#pragma config PWRT = OFF, BOR = ON, BORV = 45
+#pragma config WDT = OFF, LVP = OFF
+#pragma config DEBUG = OFF, STVR = OFF
+#include <P18F458.h>
+void main(void)
+  {
+  }

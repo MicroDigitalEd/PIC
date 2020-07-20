@@ -1,0 +1,2 @@
+﻿    	MOVLW 0x23 		
+    	SUBLW 0x3F    	

@@ -1,0 +1,7 @@
+﻿	MOVLW 0 	 	
+	MOVWF 12H		
+	MOVLW 22H   	
+	ADDWF 12H, F	
+	ADDWF 12H, F	
+	ADDWF 12H, F	
+	ADDWF 12H, F	

@@ -1,0 +1,4 @@
+﻿	MOVLW	55H		
+	MOVWF	PORTB		
+B1	COMF	PORTB, F	
+	GOTO	B1		

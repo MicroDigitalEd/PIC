@@ -1,0 +1,3 @@
+﻿	MOVF  PORTB,W	
+	ADDLW 05H		
+	MOVWF PORTC		

@@ -1,0 +1,36 @@
+﻿#include <p18f4580.h>
+#define mybit PORTBbits.RB0
+#define SW PORTBbits.RB7
+void T0PSDelay(unsigned char);
+void main(void)
+  {
+    TRISBbits.TRISB7=1;
+	TRISBbits.TRISB0=0;
+    SW=1;
+    while(1)
+      {
+        mybit^=1;		
+        if(SW==0)		
+          T0PSDelay(0);
+        else
+          T0PSDelay(1);
+      }
+  }
+void T0PSDelay(unsigned char c)
+  {
+    T0CON=0x05;		
+    if(c==0)
+      {
+       TMR0H=0xFF;		
+	  TMR0L=0xD9;		
+      }
+    else
+      {
+	  TMR0H=0xFF;		
+	  TMR0L=0xE6;		
+      }
+    T0CONbits.TMR0ON=1;			
+    while(INTCONbits.TMR0IF==0);	
+    T0CONbits.TMR0ON=0;			
+    INTCONbits.TMR0IF=0;		
+  }

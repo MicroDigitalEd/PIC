@@ -1,0 +1,30 @@
+﻿#include <P18F458.h>
+#define MYSW PORTBbits.RB5		
+void main(void)
+  {
+    unsigned char z;
+    unsigned char fname[]="ALI";
+    unsigned char lname[]="SMITH";
+    TRISBbits.TRISB5 = 1; 	
+    TXSTA=0x20;			
+    SPBRG=15;			
+    TXSTAbits.TXEN=1;
+    RCSTAbits.SPEN=1; 
+    if(MYSW==0)					
+      {
+        for(z=0;z<3;z++)			
+          {
+            while(PIR1bits.TXIF==0);	
+            TXREG=fname[z];		
+          }
+      }
+    else
+      {
+        for(z=0;z<5;z++)			
+          {
+            while(PIR1bits.TXIF==0);	
+            TXREG=lname[z];		
+          }
+      }
+	while(1);
+  }

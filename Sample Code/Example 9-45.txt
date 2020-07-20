@@ -1,0 +1,22 @@
+﻿#include <p18f4580.h>
+void T3Delay(void);
+#define mybit PORTBbits.RB1
+void main(void)
+  {
+	TRISBbits.TRISB1=0;		
+    T3CON=0x00;			
+    while(1)
+      {
+        mybit=~mybit;			
+        T3Delay();
+      }
+  }
+void T3Delay()
+  {	
+    TMR3H=0xFE;				
+    TMR3L=0x0C;				
+    T3CONbits.TMR3ON=1;		
+    while(PIR2bits.TMR3IF==0);	
+    T3CONbits.TMR3ON=0;		
+    PIR2bits.TMR3IF=0;		
+  }

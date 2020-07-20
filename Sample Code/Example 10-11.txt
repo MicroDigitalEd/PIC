@@ -1,0 +1,14 @@
+﻿#include <P18F4580.h>
+void main(void)
+  {
+    TXSTA=0x20;			
+    SPBRG=15;			
+    TXSTAbits.TXEN=1;
+    RCSTAbits.SPEN=1;   
+    
+    while(1)
+      {
+        TXREG='G';		
+        while(PIR1bits.TXIF==0);	
+	 }
+  }

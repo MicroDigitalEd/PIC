@@ -1,0 +1,2 @@
+﻿ 	MOVLW -D'200'
+	MOVWF TMR0L

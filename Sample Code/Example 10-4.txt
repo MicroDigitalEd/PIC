@@ -1,0 +1,10 @@
+﻿	MOVLW	B'10010000'		
+     	MOVWF RCSTA			
+     	MOVLW D'15'     	 	
+     	MOVWF SPBRG          	
+     	BSF 	TRISC, RX      	
+	CLRF	TRISB			
+R1	BTFSS	PIR1, RCIF     	
+	BRA 	R1             	
+	MOVFF	RCREG, PORTB   	
+	BRA	R1			

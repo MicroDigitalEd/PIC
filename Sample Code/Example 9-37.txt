@@ -1,0 +1,29 @@
+﻿#include <p18f4580.h>
+void ToTime(unsigned char);
+void main()
+  {
+    unsigned char sec;
+	TRISB=TRISD=0;			
+    T0CON=0x68;				
+   	TMR0L=-60;				
+    while(1)
+      {
+       do
+        {
+          T0CONbits.TMR0ON=1;	
+          sec=TMR0L;
+          ToTime(sec); 
+        }
+    while(INTCONbits.TMR0IF==0);	
+    T0CONbits.TMR0ON=0;		
+    INTCONbits.TMR0IF=0;		
+      }
+  }
+void ToTime(unsigned char value)
+  {
+    unsigned char sec, min;
+    min = value / 60;
+    sec = value % 60;
+    PORTB = sec;
+    PORTD = min;
+  }

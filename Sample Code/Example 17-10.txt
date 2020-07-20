@@ -1,0 +1,19 @@
+﻿#include <p18f458.h>
+#define MTR PORTBbits.RB1
+void MSDelay(unsigned int value)
+void main()
+  {
+  unsigned int duty
+  TRISB = 0xFD
+  TRISD = 0xFF
+  while(1)
+    {
+	duty = PORTD&0x03
+     duty++
+     duty *= 25
+     MTR = 1
+     MSDelay(duty)
+     MTR = 0
+     MSDelay(100-duty)
+    }
+  }

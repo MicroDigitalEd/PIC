@@ -1,0 +1,17 @@
+﻿	MyReg		SET	0x30			
+	R2			SET	0x20			
+				CLRF	TRISB			
+				MOVLW 0x66			
+				MOVWF MyReg
+	BACK		MOVFF MyReg,PORTB	
+				RRNCF MyReg,F		
+				CALL DELAY			
+				BRA	BACK			
+	DELAY		
+				MOVLW 0xFF
+				MOVWF R2	
+	D1			NOP
+				DECF R2,F
+				BNZ D1
+				RETURN		
+				END	

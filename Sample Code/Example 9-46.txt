@@ -1,0 +1,22 @@
+﻿#include <p18f4580.h>
+void main(void)
+  {
+    	TRISCbits.TRISC0=1;		
+	TRISB = 0;				
+	TRISD = 0;				
+    	T3CON=0x02;	
+    	TMR3H=0;				
+    	TMR3L=0;				
+    	while(1)				
+      {
+       do
+        {
+          T3CONbits.TMR3ON=1;	
+          PORTB=TMR3L;		
+          PORTD=TMR3H;		
+        } 
+    while(PIR2bits.TMR3IF==0);	
+    T3CONbits.TMR3ON=0;		
+    PIR2bits.TMR3IF=0;		
+       }
+  }

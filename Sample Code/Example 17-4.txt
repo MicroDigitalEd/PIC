@@ -1,0 +1,39 @@
+﻿#include <p18f458.h>
+#define SW PORTDbits.RD7
+void MSDelay(int ms);
+void main()
+  {
+    TRISD=0x80;		
+    TRISB=0x0;		
+    while(1)
+      {
+        if(SW == 0)
+          {
+          PORTB = 0x66;
+          MSDelay(100);
+          PORTB = 0xCC;
+          MSDelay(100);
+          PORTB = 0x99;
+          MSDelay(100);
+          PORTB = 0x33;
+          MSDelay(100);
+          }
+        else
+          {
+          PORTB = 0x66;
+          MSDelay(100);
+          PORTB = 0x33;
+          MSDelay(100);
+          PORTB = 0x99;
+          MSDelay(100);
+          PORTB = 0xCC;
+          MSDelay(100);
+          }
+      }
+  }
+void MSDelay(unsigned int value)
+  {
+    unsigned int x, y;
+    for(x=0;x<1275;x++)
+      for(y=0;y<value;y++);
+  }

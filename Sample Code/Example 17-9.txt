@@ -1,0 +1,32 @@
+﻿#include <p18f458.h>
+#define SW PORTDbits.RD7
+#define MTR  PORTBbits.RB1
+void MSDelay(unsigned int value);
+void main()
+  {
+  TRISD=0x80;       
+  TRISB=0xFD;       
+  while(1)
+    {
+      if(SW == 1)
+        {
+          MTR = 1;
+          MSDelay(25);
+          MTR = 0;
+          MSDelay(75);
+        }
+      else
+        {
+          MTR = 1;
+          MSDelay(50);
+          MTR = 0;
+          MSDelay(50);
+        }
+    }
+  }
+void MSDelay(unsigned int value)
+  {
+    unsigned char x, y;
+    for(x=0; x<1275; x++)
+      for(y=0; y<value; y++);
+  }

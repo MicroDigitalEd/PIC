@@ -1,0 +1,16 @@
+﻿#include <p18f4580.h>
+#define mybit PORTBbits.RB4
+void main(void)
+  { 
+    	TRISBbits.TRISB4=0;	
+    	T2CON=0x0;			
+    	TMR2=0x00;			
+	mybit=0;			
+   	PR2=100;			
+    	T2CONbits.TMR2ON=1;	
+    	while(PIR1bits.TMR2IF==0);	
+    	mybit=1;			
+	T2CONbits.TMR2ON=0;	
+    	PIR1bits.TMR2IF=0;	
+	while(1);			
+  }
